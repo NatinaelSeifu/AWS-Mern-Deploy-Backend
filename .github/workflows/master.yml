@@ -24,6 +24,7 @@ jobs:
         run: |
           docker stop test_api_container || true
           docker rm test_api_container || true
+          echo ${{ env.PPPP }}
           docker run -d \
           -e PORT=${{ env.PPPP }} \
           -e NODE_ENV=${{ env.API_NODE_ENV }} \
