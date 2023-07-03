@@ -32,7 +32,7 @@ jobs:
           -e GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}} \
           -e GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}} \
           --name test_api_container \
-          -p ${{ env.API_PORT }}:${{ env.API_PORT }} \
+          -p 8000:8000 \
           test_api_image:latest
 
       - name: Remove Dangling Docker images
