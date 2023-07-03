@@ -25,14 +25,14 @@ jobs:
           docker stop test_api_container || true
           docker rm test_api_container || true
           docker run -d \
-          -e PORT=${{ env.API_PORT }} \
+          -e PORT=${{ env.PPPP }} \
           -e NODE_ENV=${{ env.API_NODE_ENV }} \
           -e MONGO_URI=${{ secrets.MONGO_URI }} \
           -e JWT_SECRET=${{ secrets.API_JWT_SECRET }} \
           -e GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}} \
           -e GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}} \
           --name test_api_container \
-          -p ${{ env.PORT }}:${{ env.PORT }} \
+          -p ${{ env.PPPP }}:${{ env.PPPP }} \
           test_api_image:latest
 
       - name: Remove Dangling Docker images
