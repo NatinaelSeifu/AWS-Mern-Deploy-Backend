@@ -11,6 +11,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Check the current user
+        run: |
+          whoami
 
       - name: Build Test API Docker image
         run: |
