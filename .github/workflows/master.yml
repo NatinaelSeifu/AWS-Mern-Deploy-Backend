@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Check the current user
         run: |
           whoami
@@ -24,15 +24,7 @@ jobs:
         run: |
           docker stop test_api_container || true
           docker rm test_api_container || true
-          docker run -d -e PORT=${{ env.API_PORT }} \
-          -e NODE_ENV=${{ env.API_NODE_ENV }} \
-          -e MONGO_URI=${{ secrets.MONGO_URI }} \
-          -e JWT_SECRET=${{ secrets.API_JWT_SECRET }} \
-          -e ENV GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}}
-          -e ENV GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}}
-          --name test_api_container \
-          -p ${{ env.API_PORT }}:${{ env.API_PORT }} \
-          test_api_image:latest
+          docker run -d test_api_image:latest
 
       - name: Remove Dangling Docker images
         run: |
