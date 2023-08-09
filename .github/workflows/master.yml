@@ -18,23 +18,24 @@ jobs:
 
       - name: Build Test API Docker image
         run: |
-          docker build -t test_api_image .
+          docker build -t natinael/todo-backend .
 
-      - name: Deploy Test API
+      - name: Login to Docker registry
         run: |
-          docker stop test_api_container || true
-          docker rm test_api_container || true
-          docker run -d \
-          -e PORT=${{vars.PORT}} \
-          -e NODE_ENV=${{vars.API_NODE_ENV}} \
-          -e MONGO_URI=${{secrets.MONGO_URI}} \
-          -e JWT_SECRET=${{secrets.API_JWT_SECRET}} \
-          -e GMAIL_USERNAME=${{secrets.GMAIL_USERNAME}} \
-          -e GMAIL_PASSWORD=${{secrets.GMAIL_PASSWORD}} \
-          --name test_api_container \
-          -p ${{vars.API_PORT}}:${{vars.API_PORT}} \
-          test_api_image:latest
+         docker login ${{secrets.registry}} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}    
 
-      - name: Remove Dangling Docker images
+      - name: Tag the image
         run: |
-          docker rmi $(docker images --quiet --filter "dangling=true") || true
+          docker tag natinael/todo-backend:latest ${{secrets.DOCKER_IMAGE}}
+
+      - name: Push Test API Docker image
+        run: |
+          docker push ${{secrets.DOCKER_IMAGE}}
+
+      - name: Run Ansible PlayBook
+        run: |
+          cd /home/ec2-user && ansible-playbook -i backend-inventory.txt backend-ansible.yml
+          
+          
+
+---
