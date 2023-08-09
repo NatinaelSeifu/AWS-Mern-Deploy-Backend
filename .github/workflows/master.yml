@@ -32,6 +32,7 @@ jobs:
         run: |
           docker push ${{secrets.DOCKER_IMAGE}}
 
+
       - name: Run Ansible PlayBook
         run: |
           cd /home/ec2-user && ansible-playbook backend-ansible.yml
