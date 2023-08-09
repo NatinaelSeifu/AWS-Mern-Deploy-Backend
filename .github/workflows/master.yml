@@ -1,41 +1,39 @@
-name: Deploy Test API
+- name: Deploy Test API
 
-on:
-  push:
-    branches:
-      - master
+  on:
+    push:
+      branches:
+        - master
 
-jobs:
-  build-and-deploy:
-    runs-on: [self-hosted, self-hosted-backend]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    jobs:
+      build-and-deploy:
+        runs-on: [self-hosted, self-hosted-backend]
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
 
-      - name: Check the current user
-        run: |
-          whoami
+          - name: Check the current user
+            run: |
+              whoami
 
-      - name: Build Test API Docker image
-        run: |
-          docker build -t natinael/todo-backend .
+          - name: Build Test API Docker image
+            run: |
+              docker build -t natinael/todo-backend .
 
-      - name: Login to Docker registry
-        run: |
-         docker login ${{secrets.registry}} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}    
+          - name: Login to Docker registry
+            run: |
+             docker login ${{secrets.registry}} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}    
 
-      - name: Tag the image
-        run: |
-          docker tag natinael/todo-backend:latest ${{secrets.DOCKER_IMAGE}}
+          - name: Tag the image
+            run: |
+              docker tag natinael/todo-backend:latest ${{secrets.DOCKER_IMAGE}}
 
-      - name: Push Test API Docker image
-        run: |
-          docker push ${{secrets.DOCKER_IMAGE}}
+          - name: Push Test API Docker image
+            run: |
+              docker push ${{secrets.DOCKER_IMAGE}}
 
-      - name: Run Ansible PlayBook
-        run: |
-          cd /home/ec2-user && ansible-playbook -i backend-inventory.txt backend-ansible.yml
-          
-          
-
+          - name: Run Ansible PlayBook
+            run: |
+              cd /home/ec2-user && ansible-playbook -i backend-inventory.txt backend-ansible.yml
+              
 ---
