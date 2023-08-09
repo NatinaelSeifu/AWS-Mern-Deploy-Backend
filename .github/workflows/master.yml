@@ -34,6 +34,6 @@ jobs:
 
       - name: Run Ansible PlayBook
         run: |
-          cd /home/ec2-user && ansible-playbook -i backend-inventory.txt backend-ansible.yml
+          cd /home/ec2-user && ansible-playbook backend-ansible.yml
               
 
