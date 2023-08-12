@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, self-hosted-backend]
+    runs-on: [self-hosted, self-hosted-backend, backend-hosted]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,6 +35,6 @@ jobs:
 
       - name: Run Ansible PlayBook
         run: |
-          cd /home/ec2-user && ansible-playbook backend-ansible.yml
+          cd && ansible-playbook backend-ansible.yml
               
 
