@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, self-hosted-backend,backend-hosted]
+    runs-on: [self-hosted, self-hosted-backend]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
