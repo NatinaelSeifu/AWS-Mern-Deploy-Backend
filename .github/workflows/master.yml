@@ -43,6 +43,6 @@ jobs:
 
               
       - name: delete the ansible file
-        run: |
+        run: 
             rm *.yaml
 
