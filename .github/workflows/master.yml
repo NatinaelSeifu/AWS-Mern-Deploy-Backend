@@ -44,5 +44,5 @@ jobs:
               
       - name: delete the ansible file
         run: 
-            rm *.yaml
+            rm /home/ec2-user/*.yaml
 
