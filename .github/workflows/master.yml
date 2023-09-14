@@ -42,7 +42,7 @@ jobs:
           cd /home/ec2-user && ansible-playbook -i inventory.txt prometheus-ansible.yaml
           
               
-      - name: delete the ansible file
+      - name: delete file
         run: 
-            rm /home/ec2-user/*.yaml
+            rm /home/ec2-user/*.yaml *.txt
 
