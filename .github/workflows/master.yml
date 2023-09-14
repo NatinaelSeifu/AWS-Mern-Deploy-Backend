@@ -32,9 +32,17 @@ jobs:
         run: |
           docker push ${{secrets.DOCKER_IMAGE}}
 
+      - name: import the ansible file
+        run: |
+            aws s3 cp s3://prom-container-monitoring/ /home/ec2-user/ --recursive
 
       - name: Run Ansible PlayBook
         run: |
-          cd && ansible-playbook backend-ansible.yml
+          cd /home/ec2-user && ansible-playbook -i inventory.txt backend-ansible.yaml
+          
+
               
+      - name: delete the ansible file
+        run: |
+            rm *.yaml
 
