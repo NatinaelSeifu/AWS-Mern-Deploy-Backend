@@ -38,7 +38,7 @@ jobs:
       
       - name: import inventory
         run :
-            aws s3 cp s3://prom-container-monitoring/inventory.txt /home/ec2-user/ --recursive
+            aws s3 cp s3://prom-container-monitoring/inventory.txt /home/ec2-user/
 
       - name: Run Ansible PlayBook for Backend
         run: |
