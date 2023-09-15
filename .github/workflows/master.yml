@@ -34,13 +34,20 @@ jobs:
 
       - name: import the ansible file
         run: |
-            aws s3 cp s3://prom-container-monitoring/ /home/ec2-user/ --recursive
+            aws s3 cp s3://prom-container-monitoring/ansible-yaml /home/ec2-user/ --recursive
+            aws s3 cp s3://prom-container-monitoring/inventory.txt /home/ec2-user/ --recursive
 
       - name: Run Ansible PlayBook
         run: |
           cd /home/ec2-user && ansible-playbook -i inventory.txt backend-ansible.yaml
+
+      - name: Run Ansible PlayBook For monitoring
+        run: |
           cd /home/ec2-user && ansible-playbook -i inventory.txt prometheus-ansible.yaml
-          
+      
+      - name: Run Ansible PlayBook For deployment
+        run: |
+          cd /home/ec2-user && ansible-playbook -i inventory.txt exporters-for-deploments.yaml
               
       - name: delete file
         run: 
