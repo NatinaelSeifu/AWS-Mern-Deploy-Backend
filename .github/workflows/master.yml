@@ -37,7 +37,7 @@ jobs:
             aws s3 cp s3://prom-container-monitoring/ansible-yaml /home/ec2-user/ --recursive
             aws s3 cp s3://prom-container-monitoring/inventory.txt /home/ec2-user/ --recursive
 
-      - name: Run Ansible PlayBook
+      - name: Run Ansible PlayBook for Backend
         run: |
           cd /home/ec2-user && ansible-playbook -i inventory.txt backend-ansible.yaml
 
