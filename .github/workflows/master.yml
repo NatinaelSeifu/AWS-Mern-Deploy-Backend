@@ -44,5 +44,5 @@ jobs:
               
       - name: delete file
         run: 
-            sudo rm /home/ec2-user/*
+            sudo rm /home/ec2-user/*.yaml /home/ec2-user/*.txt
 
